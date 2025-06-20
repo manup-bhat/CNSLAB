@@ -1,0 +1,116 @@
+#include <iostream>
+#include <unordered_set>
+#include <vector>
+using namespace std;
+
+char matrix[5][5];
+pair<int, int> position[26]; // position of each letter (A-Z, J=I)
+
+// Builds the 5x5 matrix using key
+void generateMatrix(string key) {
+    unordered_set<char> used;
+    key += "ABCDEFGHIKLMNOPQRSTUVWXYZ"; // J is merged with I
+    int idx = 0;
+
+    for (char ch : key) {
+        ch = toupper(ch);
+        if (ch == 'J') ch = 'I';
+        if (used.count(ch)) continue;
+
+        matrix[idx / 5][idx % 5] = ch;
+        position[ch - 'A'] = {idx / 5, idx % 5};
+        used.insert(ch);
+        idx++;
+    }
+}
+
+// Prepares plaintext for encryption
+string prepareText(string text) {
+    string clean;
+    for (char ch : text) {
+        if (isalpha(ch)) {
+            ch = toupper(ch);
+            clean += (ch == 'J') ? 'I' : ch;
+        }
+    }
+
+    string prepared;
+    for (size_t i = 0; i < clean.length(); i++) {
+        prepared += clean[i];
+        if (i + 1 < clean.length() && clean[i] == clean[i + 1])
+            prepared += 'X'; // insert filler between same letters
+        else if (i + 1 < clean.length())
+            prepared += clean[++i]; // add next letter
+    }
+
+    if (prepared.length() % 2 != 0)
+        prepared += 'X'; // pad if odd length
+
+    return prepared;
+}
+
+// Encrypts the text using Playfair cipher
+string encrypt(string text) {
+    string cipher;
+    for (size_t i = 0; i < text.length(); i += 2) {
+        char a = text[i], b = text[i + 1];
+        int row1 = position[a - 'A'].first, col1 = position[a - 'A'].second;
+        int row2 = position[b - 'A'].first, col2 = position[b - 'A'].second;
+
+        if (row1 == row2) {
+            cipher += matrix[row1][(col1 + 1) % 5];
+            cipher += matrix[row2][(col2 + 1) % 5];
+        } else if (col1 == col2) {
+            cipher += matrix[(row1 + 1) % 5][col1];
+            cipher += matrix[(row2 + 1) % 5][col2];
+        } else {
+            cipher += matrix[row1][col2];
+            cipher += matrix[row2][col1];
+        }
+    }
+    return cipher;
+}
+
+// Decrypts the text using Playfair cipher
+string decrypt(string cipher) {
+    string plain;
+    for (size_t i = 0; i < cipher.length(); i += 2) {
+        char a = cipher[i], b = cipher[i + 1];
+        int row1 = position[a - 'A'].first, col1 = position[a - 'A'].second;
+        int row2 = position[b - 'A'].first, col2 = position[b - 'A'].second;
+
+        if (row1 == row2) {
+            plain += matrix[row1][(col1 + 4) % 5];
+            plain += matrix[row2][(col2 + 4) % 5];
+        } else if (col1 == col2) {
+            plain += matrix[(row1 + 4) % 5][col1];
+            plain += matrix[(row2 + 4) % 5][col2];
+        } else {
+            plain += matrix[row1][col2];
+            plain += matrix[row2][col1];
+        }
+    }
+    return plain;
+}
+
+// Main function to test
+int main() {
+    string key, message;
+    cout << "Enter key: ";
+    cin >> key;
+    generateMatrix(key);
+
+    cout << "\nEnter plaintext: ";
+    cin >> ws;
+    getline(cin, message);
+
+    string prepared = prepareText(message);
+    string encrypted = encrypt(prepared);
+    string decrypted = decrypt(encrypted);
+
+    cout << "\nPrepared text: " << prepared;
+    cout << "\nEncrypted: " << encrypted;
+    cout << "\nDecrypted: " << decrypted << endl;
+
+    return 0;
+}
