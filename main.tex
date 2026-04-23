@@ -4,96 +4,92 @@
 \usepackage[a4paper,
             top=1in, bottom=1in,
             left=1.25in, right=1in]{geometry}
-\usepackage{times}           % Times New Roman
-\usepackage{setspace}        % 1.5 line spacing
-\usepackage{titlesec}        % Chapter/section heading control
-\usepackage{fancyhdr}        % Header and footer
-\usepackage{graphicx}        % For images/diagrams
-\usepackage{float}           % Figure placement [H]
-\usepackage{ragged2e}        % Justification
-\usepackage{xcolor}          % Colours (red rule)
-\usepackage{array}           % Tables
-\usepackage{booktabs}        % Nice tables
-\usepackage{microtype}       % Prevents word-cutting at margins
-\usepackage{hyperref}        % Clickable references
-\usepackage[none]{hyphenat}  % Disable hyphenation completely
-\usepackage{parskip}         % Paragraph spacing control
-\usepackage{emptypage}       % No header/footer on blank pages
-\usepackage{afterpage}       % Blank page command
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[none]{hyphenat}
+\usepackage{emptypage}
 
-% ── Prevent word breaking at margins ──────────────────────────────────────
+% ── Prevent word breaking ─────────────────────────────────────────────────
 \tolerance=1
 \emergencystretch=\maxdimen
 \hyphenpenalty=10000
 \hbadness=10000
 
-% ── Line Spacing ──────────────────────────────────────────────────────────
+% ── Spacing ───────────────────────────────────────────────────────────────
 \onehalfspacing
-
-% ── Paragraph settings ────────────────────────────────────────────────────
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  HEADER AND FOOTER  (fancyhdr)
+%  HEADER AND FOOTER
 % ══════════════════════════════════════════════════════════════════════════
 \pagestyle{fancy}
 \fancyhf{}
 
-% Header
-\fancyhead[L]{\small\textit{AI-Powered NHI Governance Agent}}
-\fancyhead[R]{\small\textcolor{red}{\textit{Chapter Name}}}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\headrule}{%
-  {\color{red}\hrule width\headwidth height\headrulewidth}}
+% ── Header text ───────────────────────────────────────────────────────────
+\fancyhead[L]{\small\textbf{Non-Human Identity Governance Agent}}
+\fancyhead[R]{\small\textit{\rightmark}}  % updates per chapter automatically
 
-% Footer
+% ── Header rule — thick dark maroon + thin line below (matches image 7) ──
+\renewcommand{\headrulewidth}{0pt} % disable default rule
+\renewcommand{\headrule}{%
+  \vspace{1pt}%
+  {\color[RGB]{100,0,0}\hrule width\headwidth height 2pt}%
+  \vspace{1.5pt}%
+  {\color[RGB]{100,0,0}\hrule width\headwidth height 0.4pt}%
+}
+
+% ── Footer ────────────────────────────────────────────────────────────────
 \fancyfoot[L]{\small Department of ISE}
-\fancyfoot[C]{\small 2024--25}
+\fancyfoot[C]{\small 2025--26}              % ← FIXED YEAR
 \fancyfoot[R]{\small Page \thepage}
 \renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{%
+  {\color{black}\hrule width\headwidth height 0.4pt}}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER TITLE FORMAT
-% ══════════════════════════════════════════════════════════════════════════
-
-% Remove default "Chapter X" label — we handle it manually
+%  CHAPTER / SECTION FORMAT
+% ═════════════════════════════════════════════════════════════════════���════
 \titleformat{\chapter}[block]
-  {\normalfont\fontsize{14}{16}\bfseries\centering}  % Chapter title style
-  {}                                                  % No label
+  {\normalfont\fontsize{14}{16}\bfseries\centering}
+  {}
   {0pt}
   {}
-
 \titlespacing*{\chapter}{0pt}{0pt}{12pt}
 
-% Section headings
 \titleformat{\section}
   {\normalfont\fontsize{12}{14}\bfseries}
-  {\thesection}
-  {1em}
-  {}
+  {\thesection}{1em}{}
 \titlespacing*{\section}{0pt}{6pt}{0pt}
 
-% Subsection headings
 \titleformat{\subsection}
   {\normalfont\fontsize{12}{14}\bfseries}
-  {\thesubsection}
-  {1em}
-  {}
+  {\thesubsection}{1em}{}
 \titlespacing*{\subsection}{0pt}{6pt}{0pt}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER DIVIDER PAGE COMMAND
-%  Usage: \chapterdivider{1}{INTRODUCTION}
+%  - Updates right header to show THIS chapter name
+%  - Places CHAPTER-X + NAME at bottom right
+%  - Bold + Italic + Underline on both lines
 % ══════════════════════════════════════════════════════════════════════════
 \newcommand{\chapterdivider}[2]{%
   \newpage
-  \thispagestyle{fancy}
-  \vspace*{\fill}
+  % Update right header to show current chapter name
+  \fancyhead[R]{\small\textit{#2}}%
+  \thispagestyle{fancy}%
+  \vspace*{\fill}%
   \begin{flushright}
-    \textbf{\textit{\underline{CHAPTER-#1}}}\\[6pt]
-    \textbf{\textit{#2}}
-  \end{flushright}
+    \textbf{\textit{\underline{CHAPTER-#1}}}\\[8pt]
+    \textbf{\textit{\underline{#2}}}
+  \end{flushright}%
   \newpage
 }
 
@@ -102,11 +98,13 @@
 %  Usage: \chapterstart{1}{Introduction}
 % ══════════════════════════════════════════════════════════════════════════
 \newcommand{\chapterstart}[2]{%
+  % Update right header mark for content pages of this chapter
+  \markright{#2}%
   \begin{center}
-    CHAPTER #1 \\[4pt]
-    {\bfseries #2}
-  \end{center}
-  \vspace{8pt}
+    {\normalfont CHAPTER #1}\\[6pt]
+    {\normalfont\bfseries #2}
+  \end{center}%
+  \vspace{10pt}%
 }
 
 % ══════════════════════════════════════════════════════════════════════════
@@ -114,16 +112,13 @@
 % ══════════════════════════════════════════════════════════════════════════
 \begin{document}
 
-% ── Suppress chapter numbering in sections ─────────────────────────────
-\setcounter{chapter}{0}
-
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER 1 — DIVIDER PAGE
-% ══════════════════════════════════════════════════════════════════════════
+%  CHAPTER 1 DIVIDER
+% ═��════════════════════════════════════════════════════════════════════════
 \chapterdivider{1}{INTRODUCTION}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER 1 — CONTENT
+%  CHAPTER 1 CONTENT
 % ══════════════════════════════════════════════════════════════════════════
 \setcounter{chapter}{1}
 \setcounter{section}{0}
@@ -151,7 +146,10 @@ identifying credential abuse as the primary attack vector in 49\% of
 all recorded breaches. A single leaked service principal with excessive
 Azure Active Directory permissions can enable full tenant compromise,
 lateral movement across subscriptions, and exfiltration of sensitive
-data at cloud scale.
+data at cloud scale. The 2020 SolarWinds supply chain compromise
+leveraged compromised service principal credentials as a pivotal step
+in its lateral movement strategy, demonstrating the real-world severity
+of unmanaged NHIs.
 
 The IA-DevSecOps-Identity-Governance project addresses this challenge
 by delivering an AI-powered NHI Governance Agent that continuously
@@ -172,20 +170,24 @@ remediation capability. Operators must manually act upon notifications,
 introducing delays and operational risk that leaves organizations
 exposed between audit cycles. Second, tooling is fundamentally siloed
 across platforms. Certificate monitors operate independently of Azure
-credential tools, which in turn have no visibility into GitHub tokens or
-managed identities. No unified system maintains a cross-platform NHI
+credential tools, which in turn have no visibility into GitHub tokens
+or managed identities. No unified system maintains a cross-platform NHI
 inventory that includes dormant or orphaned identities. Third, existing
 solutions lack meaningful risk intelligence. Binary expired or
 not-expired thresholds fail to capture the nuanced risk posture of each
-identity.
+identity. A service principal unused for ninety days but still valid
+often represents a higher risk than a frequently used principal expiring
+in forty-five days, yet current tools treat these situations
+identically.
 
 These deficiencies result in tangible and measurable consequences. The
-OWASP Non-Human Identities Top 10 report of 2025 found that 70\% of
+OWASP Non-Human Identities Top~10 report of 2025 found that 70\% of
 organizations have plaintext secrets in source code repositories and
 47\% have unused IAM roles still active in their environments. The
 Cloud Security Alliance survey of 2024, covering 818 IT and security
 professionals, found that only 15\% of organizations are highly
-confident in their ability to prevent NHI attacks.
+confident in their ability to prevent NHI attacks, while 69\% express
+significant concerns about their current governance posture.
 
 \section{Objectives}
 The primary objectives of this project are as follows. First, to
@@ -217,7 +219,8 @@ autonomous NHI discovery via the Microsoft Graph API and GitHub REST
 API, AI-driven multi-dimensional risk scoring using LangChain agentic
 orchestration, policy-as-code enforcement using OPA and Rego, automated
 credential rotation via Azure Key Vault, and a real-time Azure-hosted
-NHI inventory dashboard.
+NHI inventory dashboard providing live visibility into the complete NHI
+risk posture.
 
 \section{Societal Relevance and SDG Alignment}
 This project aligns with two United Nations Sustainable Development
@@ -227,23 +230,26 @@ infrastructure that supports sustainable industrial automation at
 enterprise scale. SDG~16, Peace, Justice, and Strong Institutions, is
 addressed by enforcing institutional accountability in machine identity
 governance, producing audit-ready evidence trails for regulatory
-compliance frameworks including SOC~2 and ISO~27001.
+compliance frameworks including SOC~2 and ISO~27001, and reinforcing the
+institutional security governance and accountability mechanisms that
+underpin trustworthy digital systems.
 
 \section{Report Organisation}
 The remainder of this report is organised as follows. Chapter~2
 presents a comprehensive literature survey covering the threat landscape
-of non-human identities, AI-driven anomaly detection, and a review of
-existing tools. Chapter~3 details the system design including the
-four-layer architecture, methodology, system requirements specification,
+of non-human identities, AI-driven anomaly detection, policy-as-code
+frameworks, and a review of existing tools and systems. Chapter~3
+details the system design including the four-layer architecture,
+component descriptions, methodology, system requirements specification,
 and security design principles.
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER 2 — DIVIDER PAGE
+%  CHAPTER 2 DIVIDER
 % ══════════════════════════════════════════════════════════════════════════
 \chapterdivider{2}{LITERATURE SURVEY}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER 2 — CONTENT
+%  CHAPTER 2 CONTENT
 % ══════════════════════════════════════════════════════════════════════════
 \setcounter{chapter}{2}
 \setcounter{section}{0}
@@ -269,7 +275,9 @@ agents and introduces dynamic, context-aware access control with
 Zero-Knowledge Proofs~\cite{narajala2025}. This work is directly
 relevant to governing AI-driven NHI agents, as the trust and
 verification challenges for autonomous agents mirror those of
-non-human service principals in cloud environments.
+non-human service principals in cloud environments. The framework's
+emphasis on fine-grained, context-sensitive access control directly
+informs the policy enforcement layer of the proposed system.
 
 \subsection{OWASP Non-Human Identities Top 10}
 The OWASP NHI Top~10 report of 2025 provides an industry-authoritative
@@ -279,28 +287,35 @@ identities~\cite{owasp2025}. The report's finding that 70\% of
 organizations have plaintext secrets in source repositories and 47\%
 have unused IAM roles still active directly motivates the continuous
 discovery and automated governance capabilities of the proposed agent.
+The ranking framework also informs the risk scoring criteria applied by
+the AI engine.
 
 \subsection{NHI and Secrets Risk Report 2025}
 Entro Labs' enterprise-wide analysis reveals that NHIs grew 44\%
 between 2024 and 2025 and now outnumber human identities at a ratio
 of 144:1~\cite{entro2025}. The report further identifies that CI/CD
-workflows account for 26\% of secret exposures. These findings
-underscore the urgency of automated lifecycle governance for NHIs.
+workflows account for 26\% of secret exposures and that collaboration
+tools are responsible for one in five exposed secrets. These findings
+underscore the urgency of automated lifecycle governance for NHIs and
+validate the cross-platform scope of this project.
 
 \subsection{AI-Driven Dynamic Trust Assessment}
 Published in the World Journal of Advanced Research and Reviews, this
 paper proposes an AI-driven dynamic trust framework that uses supervised
 and unsupervised machine learning models to generate adaptive trust
-scores for identity verification~\cite{wjarr2024}. The approach of
-computing continuous, behaviour-based trust scores directly informs the
-design of the risk-scoring engine in the proposed agent.
+scores for identity verification in next-generation
+networks~\cite{wjarr2024}. The approach of computing continuous,
+behaviour-based trust scores rather than relying on static binary access
+decisions directly informs the design of the risk-scoring engine in the
+proposed agent.
 
 \subsection{Zero Trust IAM for Cross-Cloud Federated Networks}
 Potluri (2024) proposes a federated IAM system spanning AWS, Azure, and
 Google Cloud, using trust score computation and behavioural modelling to
 enforce least-privilege access across cloud boundaries~\cite{potluri2024}.
 The paper validates that cross-cloud IAM significantly reduces breach
-resistance and unauthorized access rates.
+resistance and unauthorized access rates, directly supporting the
+multi-platform scope of this project.
 
 \subsection{State of Non-Human Identity Security}
 The Cloud Security Alliance surveyed 818 IT and security professionals
@@ -308,35 +323,42 @@ in 2024 and found that only 15\% of organizations are highly confident
 in preventing NHI attacks while 69\% express significant
 concerns~\cite{csa2024}. The survey identifies auditing, privilege
 management, and policy enforcement as the primary pain points in NHI
-security.
+security, precisely the challenges addressed by the proposed system's
+automated governance capabilities.
 
 \subsection{Decentralised Identity Management}
 Bernab\'{e} Murcia et al.\ (2025) integrate Self-Sovereign Identity,
 Decentralised Identifiers, Verifiable Credentials, and Zero-Knowledge
-Proofs into a multi-domain orchestration framework~\cite{murcia2025}.
-Published in Future Generation Computer Systems, this work provides a
+Proofs into a multi-domain orchestration framework published in Future
+Generation Computer Systems~\cite{murcia2025}. This work provides a
 strong theoretical foundation for verifiable NHI credentials and
-lifecycle management.
+lifecycle management across distributed computing environments.
 
 \subsection{IAM in Cloud Environments}
 Mungoli (2023) examines Identity and Access Management in cloud
 environments with a focus on Zero Trust Architecture~\cite{mungoli2023}.
 The paper identifies dynamic resource provisioning as the primary IAM
 challenge in cloud environments and corroborates the need for real-time
-NHI governance.
+NHI governance. The systematic analysis of cloud IAM failure modes
+provides a reference framework for the threat model underpinning this
+project.
 
 \subsection{Leadership Compass on NHI Management}
 KuppingerCole's 2025 analyst report evaluates the emerging NHI
 management market, identifying automated lifecycle management, policy
 enforcement, and AI-powered anomaly detection as the three critical
-capabilities required for comprehensive NHI governance~\cite{kuppinger2025}.
+capabilities required for comprehensive NHI
+governance~\cite{kuppinger2025}. These three capabilities align
+precisely with the three differentiated innovations of the proposed
+agent.
 
 \subsection{Non-Human Identity Solutions Market Study}
 Research and Markets' global study documents that the machine-to-human
 identity ratio exceeds 17:1 in large organizations and projects
-significant NHI market growth through 2030~\cite{researchmarkets2026}.
-The report confirms that unmanaged NHIs have become a board-level
-security priority.
+significant NHI market growth through 2030, driven by cloud adoption
+and agentic AI proliferation~\cite{researchmarkets2026}. The report
+confirms that unmanaged NHIs have become a board-level security
+priority.
 
 \section{Existing Tools and Systems}
 
@@ -345,16 +367,17 @@ HashiCorp Vault is an industry-standard secrets management platform
 providing dynamic secrets, encryption as a service, and fine-grained
 access policies~\cite{vault2024}. While Vault is widely adopted as a
 secrets store, it does not provide autonomous discovery of NHIs across
-multi-platform environments, AI-driven risk scoring, or agentic
-governance capabilities that operate continuously without human
-intervention.
+multi-platform environments, AI-driven risk scoring based on behavioural
+patterns, or agentic governance capabilities that operate continuously
+without human intervention.
 
 \subsection{Microsoft Entra Workload ID}
 Microsoft Entra Workload ID is Microsoft's identity platform for
 workloads running in Azure, supporting managed identities and federated
 credentials~\cite{entra2024}. It provides basic lifecycle policies for
 Azure-native workloads but does not offer AI-driven risk classification,
-anomaly detection, or cross-platform NHI correlation with GitHub.
+anomaly detection, or cross-platform NHI correlation with GitHub tokens
+and CI/CD secrets.
 
 \section{Research Gap and Rationale}
 The review of existing research and tools reveals a consistent and
@@ -363,7 +386,10 @@ NHI discovery, AI-driven continuous risk scoring, policy-as-code
 enforcement, and automated credential rotation in a single unified
 governance agent. The proposed NHI Governance Agent is specifically
 designed to close this gap by integrating all four capabilities into a
-continuously operating autonomous system.
+continuously operating autonomous system. By enforcing automated
+rotation workflows triggered by policy thresholds such as token age
+exceeding 30 days or unused identity for over 7 days, the system closes
+the security loop without human intervention.
 
 \section{Feasibility Study}
 The proposed project is technically feasible due to the robust
@@ -374,15 +400,16 @@ across both target platforms. LangChain facilitates the agentic
 orchestration required for AI-driven risk scoring, while Open Policy
 Agent supports robust policy-as-code enforcement. Leveraging Azure Key
 Vault and GitHub Actions ensures that automated rotation pipelines can
-be securely and reliably executed at enterprise scale.
+be securely and reliably executed at enterprise scale without
+introducing significant operational overhead.
 
-% ═══════════════════════════════════���══════════════════════════════════════
-%  CHAPTER 3 — DIVIDER PAGE
 % ══════════════════════════════════════════════════════════════════════════
+%  CHAPTER 3 DIVIDER
+% ════════��═════════════════════════════════════════════════════════════════
 \chapterdivider{3}{SYSTEM DESIGN}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER 3 — CONTENT
+%  CHAPTER 3 CONTENT
 % ══════════════════════════════════════════════════════════════════════════
 \setcounter{chapter}{3}
 \setcounter{section}{0}
@@ -397,15 +424,11 @@ layers. This separation ensures that each component can be independently
 maintained, tested, or replaced without affecting the remainder of the
 system. The architecture supports both the current operational
 deployment and the proposed AI-powered evolution, with future capability
-extensions clearly identified as additive layers.
+extensions identified as additive layers that do not disrupt existing
+functionality.
 
 The system architecture is illustrated in Figure~\ref{fig:architecture}.
 
-% ── HOW TO ADD DIAGRAM ────────────────────────────────────────────────────
-% Export your diagram from mermaid.live as PNG or PDF
-% Save it as: architecture.png  in the same folder as this .tex file
-% The figure will appear exactly here with caption below
-% ─────────────────────────────────────────────────────────────────────────
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{architecture.png}
@@ -422,14 +445,16 @@ with Azure Active Directory (Entra ID), Azure Key Vault, and the GitHub
 API to build a live inventory of all NHIs. It continuously scans
 connected ecosystems and captures metadata including credential type,
 creation date, last usage timestamp, privilege scope, and ownership
-information.
+information. This phase establishes the foundational data layer upon
+which all subsequent intelligence and governance capabilities depend.
 
 Phase~2 covers classification and anomaly detection. LangChain is used
 for agentic orchestration to analyse identity behaviour across collected
 metadata. An AI-driven risk scoring engine classifies each identity
 based on sensitivity, privilege scope, and historical usage patterns.
-Anomalous access behaviours are flagged in real time for immediate
-investigation or automated response.
+Anomalous access behaviours such as sudden privilege escalation, access
+from unexpected IP addresses, or usage by dormant identities are flagged
+in real time for immediate investigation or automated response.
 
 Phase~3 covers automated governance and remediation.
 Infrastructure-as-code policies are defined using Open Policy Agent and
@@ -437,7 +462,9 @@ Rego to encode organisational governance requirements as
 machine-executable rules. Automated rotation pipelines are triggered via
 GitHub Actions when policy thresholds are breached, such as credentials
 exceeding 30~days of age or identities remaining unused for more than
-7~days.
+7~days. Azure Managed Identities and Key Vaults are updated as part of
+the rotation workflow to ensure zero standing secrets are maintained at
+all times.
 
 \section{System Requirements Specification}
 
@@ -447,17 +474,17 @@ requirements are met by Azure virtual machines or containerised
 instances running Python-based agentic workflows continuously. Storage
 for inventory states, policy evaluation logs, and audit records is
 provided through Azure Monitor and associated secure cloud storage
-services.
+services, with capacity scaled to the volume of NHIs under governance.
 
 \subsection{Software Requirements}
 The primary programming language is Python~3.11. External APIs and SDKs
 include the Azure SDK, Microsoft Graph API, and GitHub REST API for
 platform integration. Cloud services utilised include Azure Key Vault
 for secrets management, Azure Managed Identities for authentication, and
-Azure Monitor for audit logging. AI and orchestration components are
-provided by LangChain for agentic reasoning and Open Policy Agent with
-Rego for policy-as-code enforcement. CI/CD automation is implemented
-through GitHub Actions for rotation pipeline execution.
+Azure Monitor for audit logging and telemetry. AI and orchestration
+components are provided by LangChain for agentic reasoning and Open
+Policy Agent with Rego for policy-as-code enforcement. CI/CD automation
+is implemented through GitHub Actions for rotation pipeline execution.
 
 \subsection{User Requirements}
 Security teams require an Azure-hosted dashboard to view real-time NHI
@@ -466,23 +493,26 @@ require audit-ready NHI inventory reports and rotation compliance
 dashboards suitable for regulatory evidence submission. The system must
 operate autonomously with minimal human intervention, alerting
 administrators only for critical policy violations that require manual
-override.
+override or approval before execution.
 
 \subsection{Functional Requirements}
 The system must continuously discover all NHIs across Azure AD and
 GitHub, including dormant and orphaned identities. It must dynamically
-classify identities, calculate composite risk scores, and successfully
-execute credential rotation across both Azure and GitHub platforms.
-Policy evaluation must be performed against an OPA/Rego ruleset on each
-monitoring cycle, with violations triggering automated remediation
-workflows.
+classify identities, calculate composite risk scores based on
+multi-dimensional inputs, and successfully execute credential rotation
+across both Azure and GitHub platforms. Policy evaluation must be
+performed against an OPA/Rego ruleset on each monitoring cycle, with
+violations triggering automated remediation workflows without requiring
+human initiation.
 
 \subsection{Non-Functional Requirements}
 The system must be highly available, operating continuously without
 scheduled downtime. It must maintain secure state management ensuring
-that credential metadata and rotation history are stored with appropriate
-access controls. The system must adhere strictly to the principle of
-least-privilege access in its own operational permissions.
+that credential metadata and rotation history are stored with
+appropriate access controls. The system must adhere strictly to the
+principle of least-privilege access in its own operational permissions,
+requesting only the minimum rights necessary to perform discovery,
+classification, and rotation functions.
 
 \section{Component Design}
 
@@ -490,11 +520,13 @@ least-privilege access in its own operational permissions.
 The configuration layer externalises all monitoring targets into
 versioned JSON files, enabling operator customisation without modifying
 core scripts. The file \texttt{data/domains.json} defines the list of
-TLS endpoints to monitor. The file \texttt{data/service-principals.json}
-defines the Azure AD applications to monitor using dual-indexed filtering
-by application UUID and display name. In the proposed AI evolution, this
-static configuration is replaced by a live NHI inventory continuously
-auto-populated through API-driven discovery.
+TLS endpoints to monitor with support for simple hostnames, custom port
+specifications, and full SNI override objects. The file
+\texttt{data/service-principals.json} defines the Azure AD applications
+to monitor using dual-indexed filtering by application UUID and display
+name. In the proposed AI evolution, this static configuration is
+replaced by a live NHI inventory continuously auto-populated through
+API-driven discovery.
 
 \subsection{Monitoring and Intelligence Engine}
 The TLS Certificate Monitor is implemented as a Bash shell script that
@@ -505,16 +537,18 @@ complete execution regardless of individual endpoint availability.
 
 The Azure Service Principal Credential Monitor is implemented as a
 Python~3 script that queries the Azure CLI and Microsoft Graph API to
-retrieve both client secret credentials and certificate-based credentials
-for each configured application. Credentials that have already expired
-are explicitly excluded from output, focusing operator attention on
-actionable items.
+retrieve both client secret credentials and certificate-based
+credentials for each configured application. Credentials that have
+already expired are explicitly excluded from output, focusing operator
+attention on actionable items. Results are sorted by urgency with the
+most critical credentials surfaced first.
 
 The Threshold Classification Engine applies a three-tier model shared
 across all monitoring components. Credentials with thirty or fewer days
 remaining are classified as CRITICAL. Credentials with sixty or fewer
 days remaining are classified as EXPIRING. Credentials with more than
-sixty days remaining are classified as OK.
+sixty days remaining are classified as OK. Both threshold values are
+configurable via environment variables.
 
 \subsection{Output and Reporting Layer}
 HTML reports are generated as self-contained, timestamped files with a
@@ -523,7 +557,8 @@ rolling retention policy automatically removes files beyond the fifteen
 most recent reports on each execution cycle. CSV exports provide
 structured tabular data for SIEM ingestion or downstream analytics.
 SMTP email notifications are dispatched conditionally only when
-credentials are within the expiry risk window.
+credentials are within the expiry risk window, following the principle
+of alerting only on actionable conditions to minimise operator fatigue.
 
 \subsection{GitHub Actions Orchestration Layer}
 Three GitHub Actions workflows govern the platform's automation. The
@@ -532,17 +567,21 @@ schedule. The \texttt{azure-sp-expiry.yml} workflow executes Azure SP
 monitoring daily with Azure authentication. The
 \texttt{automate-build.yml} workflow implements the full DevSecOps build
 pipeline on every repository push. All workflows execute on a private
-self-hosted runner pool.
+self-hosted runner pool. In the proposed evolution, additional rotation
+pipeline workflows are triggered autonomously by the AI agent upon
+detecting policy violations.
 
 \section{Security Design Principles}
-The system's security posture is governed by consistent design principles
-applied throughout. No credentials are hardcoded in source code; all
-secrets are stored as GitHub repository-level encrypted secrets. The
-monitoring identity holds only read-only permissions, specifically
-\texttt{Application.Read.All} on the Microsoft Graph API. Azure client
+The system's security posture is governed by consistent design
+principles applied throughout. No credentials are hardcoded in source
+code; all secrets are stored as GitHub repository-level encrypted
+secrets. The monitoring identity holds only read-only permissions,
+specifically \texttt{Application.Read.All} on the Microsoft Graph API,
+with no write capabilities in the current deployment scope. Azure client
 secret values are never logged or surfaced in reports. Execution is
 confined exclusively to the private self-hosted runner pool, and
-generated reports are excluded from Git tracking.
+generated reports are excluded from Git tracking and accessible only as
+time-limited workflow artifacts.
 
 \section{Expected Outcome}
 The project will deliver a deployable NHI Governance Agent paired with
@@ -553,12 +592,15 @@ policy-as-code ruleset. By eliminating long-lived credentials and
 enforcing continuous least-privilege governance, the agent will
 measurably reduce the blast radius of credential-based attacks. It will
 directly support CISO alignment by producing audit-ready reports
-ensuring regulatory compliance with SOC~2 and ISO~27001.
+ensuring regulatory compliance with SOC~2 and ISO~27001, and will
+establish a replicable blueprint for secure, governance-by-design
+automation at enterprise scale.
 
 % ══════════════════════════════════════════════════════════════════════════
 %  REFERENCES
 % ══════════════════════════════════════════════════════════════════════════
 \newpage
+\markright{References}
 \begin{thebibliography}{99}
 
 \bibitem{narajala2025}
