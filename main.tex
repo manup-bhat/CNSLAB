@@ -22,51 +22,63 @@
 \hyphenpenalty=10000
 \hbadness=10000
 
-% ── Spacing ───────────────────────────────────────────────────────────────
+% ── Line Spacing ──────────────────────────────────────────────────────────
 \onehalfspacing
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  HEADER AND FOOTER — matching Image 9 exactly
-%  Right: chapter name — large, gray-brown, regular, NOT bold, NOT italic
-%  Rule:  thick + thin double line — dusty mauve/rose color
+%  COLOUR DEFINITION — dark maroon from images
+% ══════════════════════════════════════════════════════════════════════════
+\definecolor{maroon}{RGB}{100,0,0}
+
+% ══════════════════════════════════════════════════════════════════════════
+%  HEADER — Image 10
+%  Left:  project title — small regular
+%  Right: chapter name  — small regular
+%  Rule:  thick(3pt) + thin(1pt) dark maroon — BELOW header text
 % ══════════════════════════════════════════════════════════════════════════
 \pagestyle{fancy}
 \fancyhf{}
 
-% Left header — project title small regular
-% Right header — chapter name large gray-brown regular
 \fancyhead[L]{\small Non-Human Identity Governance Agent}
-\fancyhead[R]{%
-  \large\textcolor[RGB]{130,110,110}{\rightmark}}
+\fancyhead[R]{\small\rightmark}
 
-% Double rule below header — thick top + thin bottom — mauve color
+% Double rule below header — thick maroon + thin maroon
 \renewcommand{\headrulewidth}{0pt}
 \makeatletter
 \renewcommand{\headrule}{%
-  {\color[RGB]{180,140,140}\hrule width\headwidth height 3pt}%
-  \vspace{2pt}%
-  {\color[RGB]{180,140,140}\hrule width\headwidth height 1pt}%
+  {\color{maroon}\hrule width\headwidth height 3.5pt}%
+  \vspace{1.5pt}%
+  {\color{maroon}\hrule width\headwidth height 0.8pt}%
 }
 \makeatother
 
-% Footer — single thin black line above
+% ══════════════════════════════════════════════════════════════════════════
+%  FOOTER — Image 11
+%  Rule:  thick(3.5pt) + thin(0.8pt) dark maroon — ABOVE footer text
+%  Text:  Page X — right aligned — large serif
+%         Department left — Year centre (kept for completeness)
+% ══════════════════════════════════════════════════════════════════════════
 \fancyfoot[L]{\small Department of ISE}
 \fancyfoot[C]{\small 2025--26}
-\fancyfoot[R]{\small Page \thepage}
-\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[R]{\large Page~\thepage}
+
+% Double rule above footer — thick maroon + thin maroon
+\renewcommand{\footrulewidth}{0pt}
 \makeatletter
 \renewcommand{\footrule}{%
-  {\color{black}\hrule width\headwidth height 0.4pt}%
+  {\color{maroon}\hrule width\headwidth height 3.5pt}%
+  \vspace{1.5pt}%
+  {\color{maroon}\hrule width\headwidth height 0.8pt}%
 }
 \makeatother
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER / SECTION TITLE FORMAT
+%  SECTION / SUBSECTION FORMAT
 % ══════════════════════════════════════════════════════════════════════════
 \titleformat{\chapter}[block]
-  {\normalfont\fontsize{14}{16}\bfseries\centering}
+  {\normalfont\fontsize{14}{16}\bfseries}
   {}
   {0pt}
   {}
@@ -83,16 +95,11 @@
 \titlespacing*{\subsection}{0pt}{6pt}{0pt}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER DIVIDER PAGE
-%  - Middle of page vertically
-%  - Bold + Italic — NO underline
-%  - Right aligned
-%  - Right header updates to current chapter name
+%  CHAPTER DIVIDER PAGE — Bold Italic, right aligned, middle of page
 % ══════════════════════════════════════════════════════════════════════════
 \newcommand{\chapterdivider}[2]{%
   \newpage
   \markright{#2}%
-  \fancyhead[R]{\large\textcolor[RGB]{130,110,110}{#2}}%
   \thispagestyle{fancy}%
   \vspace*{0.38\textheight}%
   \begin{flushright}
@@ -102,20 +109,22 @@
   \newpage
 }
 
-% ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER CONTENT START
-%  - CHAPTER X centred regular
-%  - Chapter Title centred bold
-%  - Right header updates to current chapter name
+% ════════════════════════════════════════════════════════════════════════���═
+%  CHAPTER CONTENT START — Image 12
+%  CHAPTER X  — top RIGHT aligned, bold, large
+%  Chapter Title — LEFT aligned, bold
 % ══════════════════════════════════════════════════════════════════════════
 \newcommand{\chapterstart}[2]{%
   \markright{#2}%
-  \fancyhead[R]{\large\textcolor[RGB]{130,110,110}{#2}}%
-  \begin{center}
-    {\normalfont\fontsize{14}{16}\selectfont CHAPTER #1}\\[6pt]
-    {\normalfont\fontsize{14}{16}\bfseries\selectfont #2}
-  \end{center}%
+  % CHAPTER X — right aligned
+  \begin{flushright}
+    {\normalfont\fontsize{14}{16}\bfseries\selectfont CHAPTER #1}
+  \end{flushright}%
+  \vspace{4pt}%
+  % Chapter Title — left aligned, bold
+  {\normalfont\fontsize{14}{16}\bfseries\selectfont #2}%
   \vspace{10pt}%
+  \par
 }
 
 % ══════════════════════════════════════════════════════════════════════════
@@ -123,7 +132,7 @@
 % ══════════════════════════════════════════════════════════════════════════
 \begin{document}
 
-% ═════════════════════════════════════════════��════════════════════════════
+% ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 1 DIVIDER
 % ══════════════════════════════════════════════════════════════════════════
 \chapterdivider{1}{INTRODUCTION}
@@ -321,10 +330,10 @@ proposed agent.
 \subsection{Zero Trust IAM for Cross-Cloud Federated Networks}
 Potluri (2024) proposes a federated IAM system spanning AWS, Azure, and
 Google Cloud, using trust score computation and behavioural modelling to
-enforce least-privilege access across cloud boundaries~\cite{potluri2024}.
-The paper validates that cross-cloud IAM significantly reduces breach
-resistance and unauthorized access rates, directly supporting the
-multi-platform scope of this project.
+enforce least-privilege access across cloud
+boundaries~\cite{potluri2024}. The paper validates that cross-cloud IAM
+significantly reduces breach resistance and unauthorized access rates,
+directly supporting the multi-platform scope of this project.
 
 \subsection{State of Non-Human Identity Security}
 The Cloud Security Alliance surveyed 818 IT and security professionals
@@ -348,9 +357,7 @@ Mungoli (2023) examines Identity and Access Management in cloud
 environments with a focus on Zero Trust Architecture~\cite{mungoli2023}.
 The paper identifies dynamic resource provisioning as the primary IAM
 challenge in cloud environments and corroborates the need for real-time
-NHI governance. The systematic analysis of cloud IAM failure modes
-provides a reference framework for the threat model underpinning this
-project.
+NHI governance.
 
 \subsection{Leadership Compass on NHI Management}
 KuppingerCole's 2025 analyst report evaluates the emerging NHI
@@ -417,7 +424,7 @@ introducing significant operational overhead.
 % ══════════════════════════════════════════════════════════════════════════
 \chapterdivider{3}{SYSTEM DESIGN}
 
-% ══════════════════════════════════════��═══════════════════════════════════
+% ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 3 CONTENT
 % ══════════════════════════════════════════════════════════════════════════
 \setcounter{chapter}{3}
@@ -438,9 +445,7 @@ functionality.
 
 The system architecture is illustrated in Figure~\ref{fig:architecture}.
 
-% ── ADD YOUR DIAGRAM HERE ─────────────────────────────────────────────────
-% Export from mermaid.live as PNG → save as architecture.png
-% Place architecture.png in same folder as this .tex file
+% ── DIAGRAM — export from mermaid.live as PNG ─────────────────────────────
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{architecture.png}
@@ -614,7 +619,6 @@ automation at enterprise scale.
 % ══════════════════════════════════════════════════════════════════════════
 \newpage
 \markright{References}
-\fancyhead[R]{\large\textcolor[RGB]{130,110,110}{References}}
 
 \begin{thebibliography}{99}
 
