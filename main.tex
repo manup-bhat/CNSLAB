@@ -27,44 +27,47 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 
-% ══════════════════════════════════════════════════════════════════════════
-%  COLOUR DEFINITION — dark maroon from images
-% ══════════════════════════════════════════════════════════════════════════
+% ── Colour ─────────────────────────────────────���──────────────────────────
 \definecolor{maroon}{RGB}{100,0,0}
+\definecolor{headerright}{RGB}{130,110,110}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  HEADER — Image 10
-%  Left:  project title — small regular
-%  Right: chapter name  — small regular
-%  Rule:  thick(3pt) + thin(1pt) dark maroon — BELOW header text
+%  STORE CHAPTER NAME — Title Case, used in header right
+%  Never section name, never all caps, consistent everywhere
 % ══════════════════════════════════════════════════════════════════════════
+\newcommand{\currentchaptername}{}
+\newcommand{\setchaptername}[1]{%
+  \renewcommand{\currentchaptername}{#1}}
+
+% ══════════════════════════════════════════════════════════════════════════
+%  HEADER — Image 14
+%  Left:  project title — small bold
+%  Right: chapter name  — small regular gray — Title Case — NOT all caps
+%  Rule:  single thin mauve line below
+% ═══════════════════════════════════════════════════════════��══════════════
 \pagestyle{fancy}
 \fancyhf{}
 
-\fancyhead[L]{\small Non-Human Identity Governance Agent}
-\fancyhead[R]{\small\rightmark}
+\fancyhead[L]{\small\textbf{Non-Human Identity Governance Agent}}
+\fancyhead[R]{\small\textcolor{headerright}{\currentchaptername}}
 
-% Double rule below header — thick maroon + thin maroon
+% Single thin mauve line below header — matching Image 14
 \renewcommand{\headrulewidth}{0pt}
 \makeatletter
 \renewcommand{\headrule}{%
-  {\color{maroon}\hrule width\headwidth height 3.5pt}%
-  \vspace{1.5pt}%
-  {\color{maroon}\hrule width\headwidth height 0.8pt}%
+  {\color[RGB]{180,140,140}\hrule width\headwidth height 0.8pt}%
 }
 \makeatother
 
 % ══════════════════════════════════════════════════════════════════════════
 %  FOOTER — Image 11
-%  Rule:  thick(3.5pt) + thin(0.8pt) dark maroon — ABOVE footer text
-%  Text:  Page X — right aligned — large serif
-%         Department left — Year centre (kept for completeness)
+%  ALL footer same \small size — consistent
+%  Rule: thick(3.5pt) + thin(0.8pt) maroon ABOVE footer
 % ══════════════════════════════════════════════════════════════════════════
 \fancyfoot[L]{\small Department of ISE}
 \fancyfoot[C]{\small 2025--26}
-\fancyfoot[R]{\large Page~\thepage}
+\fancyfoot[R]{\small Page~\thepage}
 
-% Double rule above footer — thick maroon + thin maroon
 \renewcommand{\footrulewidth}{0pt}
 \makeatletter
 \renewcommand{\footrule}{%
@@ -95,11 +98,15 @@
 \titlespacing*{\subsection}{0pt}{6pt}{0pt}
 
 % ══════════════════════════════════════════════════════════════════════════
-%  CHAPTER DIVIDER PAGE — Bold Italic, right aligned, middle of page
+%  CHAPTER DIVIDER PAGE
+%  #1 = number   #2 = ALL CAPS name   #3 = Title Case name
+%  - Middle of page, right aligned
+%  - Bold + Italic, NO underline
+%  - Sets header chapter name
 % ══════════════════════════════════════════════════════════════════════════
-\newcommand{\chapterdivider}[2]{%
+\newcommand{\chapterdivider}[3]{%
   \newpage
-  \markright{#2}%
+  \setchaptername{#3}%
   \thispagestyle{fancy}%
   \vspace*{0.38\textheight}%
   \begin{flushright}
@@ -109,33 +116,36 @@
   \newpage
 }
 
-% ════════════════════════════════════════════════════════════════════════���═
-%  CHAPTER CONTENT START — Image 12
-%  CHAPTER X  — top RIGHT aligned, bold, large
-%  Chapter Title — LEFT aligned, bold
 % ══════════════════════════════════════════════════════════════════════════
-\newcommand{\chapterstart}[2]{%
-  \markright{#2}%
+%  CHAPTER CONTENT START — Image 14 exactly
+%  CHAPTER X  — right aligned, bold, large
+%  Chapter Title — CENTRED, bold      ← confirmed from Image 14
+%  #1 = number   #2 = ALL CAPS   #3 = Title Case
+% ══════════════════════════════════════════════════════════════════════════
+\newcommand{\chapterstart}[3]{%
+  \setchaptername{#3}%
   % CHAPTER X — right aligned
   \begin{flushright}
     {\normalfont\fontsize{14}{16}\bfseries\selectfont CHAPTER #1}
   \end{flushright}%
-  \vspace{4pt}%
-  % Chapter Title — left aligned, bold
-  {\normalfont\fontsize{14}{16}\bfseries\selectfont #2}%
-  \vspace{10pt}%
+  \vspace{2pt}%
+  % Chapter Title — centred, bold
+  \begin{center}
+    {\normalfont\fontsize{14}{16}\bfseries\selectfont #3}
+  \end{center}%
+  \vspace{12pt}%
   \par
 }
 
 % ══════════════════════════════════════════════════════════════════════════
-%  DOCUMENT BEGIN
+%  DOCUMENT
 % ══════════════════════════════════════════════════════════════════════════
 \begin{document}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 1 DIVIDER
 % ══════════════════════════════════════════════════════════════════════════
-\chapterdivider{1}{INTRODUCTION}
+\chapterdivider{1}{INTRODUCTION}{Introduction}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 1 CONTENT
@@ -143,7 +153,7 @@
 \setcounter{chapter}{1}
 \setcounter{section}{0}
 
-\chapterstart{1}{Introduction}
+\chapterstart{1}{INTRODUCTION}{Introduction}
 
 \section{Overview}
 As organizations rapidly adopt cloud-native architectures, DevOps
@@ -266,7 +276,7 @@ and security design principles.
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 2 DIVIDER
 % ══════════════════════════════════════════════════════════════════════════
-\chapterdivider{2}{LITERATURE SURVEY}
+\chapterdivider{2}{LITERATURE SURVEY}{Literature Survey}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 2 CONTENT
@@ -274,7 +284,7 @@ and security design principles.
 \setcounter{chapter}{2}
 \setcounter{section}{0}
 
-\chapterstart{2}{Literature Survey}
+\chapterstart{2}{LITERATURE SURVEY}{Literature Survey}
 
 \section{Introduction to the Survey}
 This chapter presents a structured review of research papers, industry
@@ -295,9 +305,7 @@ agents and introduces dynamic, context-aware access control with
 Zero-Knowledge Proofs~\cite{narajala2025}. This work is directly
 relevant to governing AI-driven NHI agents, as the trust and
 verification challenges for autonomous agents mirror those of
-non-human service principals in cloud environments. The framework's
-emphasis on fine-grained, context-sensitive access control directly
-informs the policy enforcement layer of the proposed system.
+non-human service principals in cloud environments.
 
 \subsection{OWASP Non-Human Identities Top 10}
 The OWASP NHI Top~10 report of 2025 provides an industry-authoritative
@@ -314,26 +322,22 @@ between 2024 and 2025 and now outnumber human identities at a ratio
 of 144:1~\cite{entro2025}. The report further identifies that CI/CD
 workflows account for 26\% of secret exposures and that collaboration
 tools are responsible for one in five exposed secrets. These findings
-underscore the urgency of automated lifecycle governance for NHIs and
-validate the cross-platform scope of this project.
+underscore the urgency of automated lifecycle governance for NHIs.
 
 \subsection{AI-Driven Dynamic Trust Assessment}
 Published in the World Journal of Advanced Research and Reviews, this
 paper proposes an AI-driven dynamic trust framework that uses supervised
 and unsupervised machine learning models to generate adaptive trust
-scores for identity verification in next-generation
-networks~\cite{wjarr2024}. The approach of computing continuous,
-behaviour-based trust scores rather than relying on static binary access
-decisions directly informs the design of the risk-scoring engine in the
-proposed agent.
+scores for identity verification~\cite{wjarr2024}. The approach of
+computing continuous, behaviour-based trust scores directly informs the
+design of the risk-scoring engine in the proposed agent.
 
 \subsection{Zero Trust IAM for Cross-Cloud Federated Networks}
 Potluri (2024) proposes a federated IAM system spanning AWS, Azure, and
 Google Cloud, using trust score computation and behavioural modelling to
 enforce least-privilege access across cloud
 boundaries~\cite{potluri2024}. The paper validates that cross-cloud IAM
-significantly reduces breach resistance and unauthorized access rates,
-directly supporting the multi-platform scope of this project.
+significantly reduces breach resistance and unauthorized access rates.
 
 \subsection{State of Non-Human Identity Security}
 The Cloud Security Alliance surveyed 818 IT and security professionals
@@ -341,8 +345,7 @@ in 2024 and found that only 15\% of organizations are highly confident
 in preventing NHI attacks while 69\% express significant
 concerns~\cite{csa2024}. The survey identifies auditing, privilege
 management, and policy enforcement as the primary pain points in NHI
-security, precisely the challenges addressed by the proposed system's
-automated governance capabilities.
+security.
 
 \subsection{Decentralised Identity Management}
 Bernab\'{e} Murcia et al.\ (2025) integrate Self-Sovereign Identity,
@@ -364,17 +367,14 @@ KuppingerCole's 2025 analyst report evaluates the emerging NHI
 management market, identifying automated lifecycle management, policy
 enforcement, and AI-powered anomaly detection as the three critical
 capabilities required for comprehensive NHI
-governance~\cite{kuppinger2025}. These three capabilities align
-precisely with the three differentiated innovations of the proposed
-agent.
+governance~\cite{kuppinger2025}.
 
 \subsection{Non-Human Identity Solutions Market Study}
 Research and Markets' global study documents that the machine-to-human
 identity ratio exceeds 17:1 in large organizations and projects
-significant NHI market growth through 2030, driven by cloud adoption
-and agentic AI proliferation~\cite{researchmarkets2026}. The report
-confirms that unmanaged NHIs have become a board-level security
-priority.
+significant NHI market growth through 2030~\cite{researchmarkets2026}.
+The report confirms that unmanaged NHIs have become a board-level
+security priority.
 
 \section{Existing Tools and Systems}
 
@@ -383,9 +383,9 @@ HashiCorp Vault is an industry-standard secrets management platform
 providing dynamic secrets, encryption as a service, and fine-grained
 access policies~\cite{vault2024}. While Vault is widely adopted as a
 secrets store, it does not provide autonomous discovery of NHIs across
-multi-platform environments, AI-driven risk scoring based on behavioural
-patterns, or agentic governance capabilities that operate continuously
-without human intervention.
+multi-platform environments, AI-driven risk scoring, or agentic
+governance capabilities that operate continuously without human
+intervention.
 
 \subsection{Microsoft Entra Workload ID}
 Microsoft Entra Workload ID is Microsoft's identity platform for
@@ -416,21 +416,20 @@ across both target platforms. LangChain facilitates the agentic
 orchestration required for AI-driven risk scoring, while Open Policy
 Agent supports robust policy-as-code enforcement. Leveraging Azure Key
 Vault and GitHub Actions ensures that automated rotation pipelines can
-be securely and reliably executed at enterprise scale without
-introducing significant operational overhead.
+be securely and reliably executed at enterprise scale.
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 3 DIVIDER
 % ══════════════════════════════════════════════════════════════════════════
-\chapterdivider{3}{SYSTEM DESIGN}
+\chapterdivider{3}{SYSTEM DESIGN}{System Design}
 
 % ══════════════════════════════════════════════════════════════════════════
 %  CHAPTER 3 CONTENT
-% ══════════════════════════════════════════════════════════════════════════
+% ══════════════════════════════════════════��═══════════════════════════════
 \setcounter{chapter}{3}
 \setcounter{section}{0}
 
-\chapterstart{3}{System Design}
+\chapterstart{3}{SYSTEM DESIGN}{System Design}
 
 \section{Architectural Overview}
 The NHI Governance Platform is designed as a four-layer modular
@@ -445,7 +444,6 @@ functionality.
 
 The system architecture is illustrated in Figure~\ref{fig:architecture}.
 
-% ── DIAGRAM — export from mermaid.live as PNG ─────────────────────────────
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{architecture.png}
@@ -557,25 +555,21 @@ Python~3 script that queries the Azure CLI and Microsoft Graph API to
 retrieve both client secret credentials and certificate-based
 credentials for each configured application. Credentials that have
 already expired are explicitly excluded from output, focusing operator
-attention on actionable items. Results are sorted by urgency with the
-most critical credentials surfaced first.
+attention on actionable items.
 
 The Threshold Classification Engine applies a three-tier model shared
 across all monitoring components. Credentials with thirty or fewer days
 remaining are classified as CRITICAL. Credentials with sixty or fewer
 days remaining are classified as EXPIRING. Credentials with more than
-sixty days remaining are classified as OK. Both threshold values are
-configurable via environment variables.
+sixty days remaining are classified as OK.
 
 \subsection{Output and Reporting Layer}
-HTML reports are generated as self-contained, timestamped files with a
-professional design system featuring colour-coded status indicators. A
-rolling retention policy automatically removes files beyond the fifteen
-most recent reports on each execution cycle. CSV exports provide
-structured tabular data for SIEM ingestion or downstream analytics.
+HTML reports are generated as self-contained, timestamped files with
+colour-coded status indicators. A rolling retention policy automatically
+removes files beyond the fifteen most recent reports on each execution
+cycle. CSV exports provide structured tabular data for SIEM ingestion.
 SMTP email notifications are dispatched conditionally only when
-credentials are within the expiry risk window, following the principle
-of alerting only on actionable conditions to minimise operator fatigue.
+credentials are within the expiry risk window.
 
 \subsection{GitHub Actions Orchestration Layer}
 Three GitHub Actions workflows govern the platform's automation. The
@@ -584,22 +578,17 @@ schedule. The \texttt{azure-sp-expiry.yml} workflow executes Azure SP
 monitoring daily with Azure authentication. The
 \texttt{automate-build.yml} workflow implements the full DevSecOps build
 pipeline on every repository push. All workflows execute on a private
-self-hosted runner pool. In the proposed evolution, additional rotation
-pipeline workflows are triggered autonomously by the AI agent upon
-detecting policy violations.
+self-hosted runner pool.
 
 \section{Security Design Principles}
 The system's security posture is governed by consistent design
 principles applied throughout. No credentials are hardcoded in source
 code; all secrets are stored as GitHub repository-level encrypted
 secrets. The monitoring identity holds only read-only permissions,
-specifically \texttt{Application.Read.All} on the Microsoft Graph API,
-with no write capabilities in the current deployment scope. Azure client
-secret values are never logged or surfaced in reports; only the hint
-field natively provided by the Azure API is displayed. Execution is
-confined exclusively to the private self-hosted runner pool, and
-generated reports are excluded from Git tracking and accessible only as
-time-limited workflow artifacts.
+specifically \texttt{Application.Read.All} on the Microsoft Graph API.
+Azure client secret values are never logged or surfaced in reports.
+Execution is confined exclusively to the private self-hosted runner
+pool, and generated reports are excluded from Git tracking.
 
 \section{Expected Outcome}
 The project will deliver a deployable NHI Governance Agent paired with
@@ -610,23 +599,20 @@ policy-as-code ruleset. By eliminating long-lived credentials and
 enforcing continuous least-privilege governance, the agent will
 measurably reduce the blast radius of credential-based attacks. It will
 directly support CISO alignment by producing audit-ready reports
-ensuring regulatory compliance with SOC~2 and ISO~27001, and will
-establish a replicable blueprint for secure, governance-by-design
-automation at enterprise scale.
+ensuring regulatory compliance with SOC~2 and ISO~27001.
 
 % ══════════════════════════════════════════════════════════════════════════
 %  REFERENCES
 % ══════════════════════════════════════════════════════════════════════════
 \newpage
-\markright{References}
+\setchaptername{References}
 
 \begin{thebibliography}{99}
 
 \bibitem{narajala2025}
 V.~S. Narajala et al., ``A Novel Zero-Trust Identity Framework for
-Agentic AI: Decentralized Authentication and Fine-Grained Access
-Control,'' \textit{arXiv preprint arXiv:2505.19301}, 2025. [Online].
-Available: \url{https://arxiv.org/abs/2505.19301}
+Agentic AI,'' \textit{arXiv preprint arXiv:2505.19301}, 2025.
+[Online]. Available: \url{https://arxiv.org/abs/2505.19301}
 
 \bibitem{owasp2025}
 OWASP Foundation, ``OWASP Non-Human Identities Top 10,'' 2025.
@@ -634,34 +620,32 @@ OWASP Foundation, ``OWASP Non-Human Identities Top 10,'' 2025.
 \url{https://owasp.org/www-project-non-human-identities-top-10/}
 
 \bibitem{entro2025}
-Entro Labs, ``NHI \& Secrets Risk Report -- H1 2025,'' Entro Security,
-2025. [Online]. Available:
+Entro Labs, ``NHI \& Secrets Risk Report -- H1 2025,'' 2025.
+[Online]. Available:
 \url{https://nhimg.org/2025-state-of-non-human-identities-and-secrets-in-cybersecurity}
 
 \bibitem{wjarr2024}
-``Zero-Trust Identity Principles in Next-Gen Networks: AI-Driven
-Dynamic Trust Assessment,'' \textit{World Journal of Advanced Research
-and Reviews}, vol.~23, no.~03, pp.~3304--3316, 2024.
+``Zero-Trust Identity Principles in Next-Gen Networks,''
+\textit{World Journal of Advanced Research and Reviews},
+vol.~23, no.~03, pp.~3304--3316, 2024.
 
 \bibitem{potluri2024}
-S.~Potluri, ``A Zero Trust-Based Identity and Access Management
-Framework for Cross-Cloud Federated Networks,''
-\textit{International Journal of Emerging Research in Engineering
-and Technology}, vol.~5, no.~2, 2024.
+S.~Potluri, ``A Zero Trust-Based IAM Framework for Cross-Cloud
+Federated Networks,'' \textit{IJERET}, vol.~5, no.~2, 2024.
 
 \bibitem{csa2024}
-Cloud Security Alliance (CSA), ``The State of Non-Human Identity
-Security,'' Survey Report, 2024. [Online]. Available:
+Cloud Security Alliance, ``The State of Non-Human Identity Security,''
+2024. [Online]. Available:
 \url{https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report}
 
 \bibitem{murcia2025}
 J.~M. Bernab\'{e} Murcia et al., ``Decentralised Identity Management
-Solution for Zero-Trust Multi-Domain Computing Continuum Frameworks,''
+for Zero-Trust Multi-Domain Frameworks,''
 \textit{Future Generation Computer Systems}, vol.~162, 2025.
 
 \bibitem{mungoli2023}
-N.~Mungoli, ``Identity and Access Management in Cloud Environments:
-Security Challenges and Solutions,'' ResearchGate, 2023.
+N.~Mungoli, ``Identity and Access Management in Cloud Environments,''
+ResearchGate, 2023.
 
 \bibitem{kuppinger2025}
 KuppingerCole, ``Leadership Compass: Non-Human Identity Management,''
