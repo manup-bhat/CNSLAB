@@ -1,20 +1,20 @@
 %-------------------------------------------------------------
 % Manu Prakash Bhat - Resume
-% ATS-friendly, single column, compiles with pdfLaTeX (MiKTeX)
+% Clean, single-column, ATS-friendly. Compiles with pdfLaTeX (MiKTeX).
 %-------------------------------------------------------------
 \documentclass[a4paper,11pt]{article}
 
 \usepackage{latexsym}
 \usepackage[usenames,dvipsnames]{color}
-\usepackage{verbatim}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \usepackage{titlesec}
-\usepackage{marvosym}
-\usepackage[a4paper,top=0.9cm,bottom=0.9cm,left=1.3cm,right=1.3cm]{geometry}
+\usepackage{setspace}
+\usepackage[a4paper,top=1.2cm,bottom=1.2cm,left=1.4cm,right=1.4cm]{geometry}
+\setstretch{1.0}
 \input{glyphtounicode}
 
 \pagestyle{fancy}
@@ -27,52 +27,49 @@
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% Section formatting
+% Section headings
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+  \vspace{2pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
 
-% Ensure PDF is machine-readable / ATS-parsable
+% Machine-readable / ATS-parsable output
 \pdfgentounicode=1
 
 % Custom commands
 \newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
-  }
+  \item\small{{#1 \vspace{-1pt}}}
 }
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
+  \vspace{1pt}\item
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
       \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-4pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
       \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-4pt}
 }
-
-\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
 \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}[itemsep=0pt,topsep=2pt,parsep=0pt,partopsep=0pt,leftmargin=0.28in]}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-6pt}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.3in, itemsep=2pt, topsep=3pt, parsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{0pt}}
 
 \begin{document}
 
 %----------HEADING----------
 \begin{center}
-    {\Huge \scshape Manu Prakash Bhat} \\ \vspace{2pt}
-    \small Bengaluru, India $|$ +91-6361976973 $|$
-    \href{mailto:manupbhat2004@gmail.com}{\underline{manupbhat2004@gmail.com}} \\ \vspace{2pt}
-    \href{https://linkedin.com/in/manu-bhat-509a71337}{\underline{linkedin.com/in/manu-bhat-509a71337}} $|$
-    \href{https://github.com/manup-bhat}{\underline{github.com/manup-bhat}}
+    {\Huge \scshape Manu Prakash Bhat} \\ \vspace{5pt}
+    \small Bengaluru, India \quad$|$\quad +91-6361976973 \quad$|$\quad
+    \href{mailto:manupbhat2004@gmail.com}{manupbhat2004@gmail.com} \\ \vspace{3pt}
+    \href{https://linkedin.com/in/manu-bhat-509a71337}{linkedin.com/in/manu-bhat-509a71337}
+    \quad$|$\quad
+    \href{https://github.com/manup-bhat}{github.com/manup-bhat}
 \end{center}
 
 %----------EDUCATION----------
@@ -80,24 +77,22 @@
   \resumeSubHeadingListStart
     \resumeSubheading
       {R. V. College of Engineering}{2022 -- 2026}
-      {B.E. in Information Science and Engineering --- CGPA: 8.54}{Bengaluru, India}
+      {B.E. in Information Science and Engineering \quad|\quad CGPA: 8.54}{Bengaluru, India}
     \resumeSubheading
       {MES PU College}{2020 -- 2022}
-      {Pre-University (Class XII) --- 94.33\%}{Sirsi, India}
+      {Pre-University (Class XII) \quad|\quad 94.33\%}{Sirsi, India}
   \resumeSubHeadingListEnd
 
 %----------TECHNICAL SKILLS----------
 \section{Technical Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-     \textbf{Languages}{: C/C++, Python, JavaScript, TypeScript, SQL} \\
-     \textbf{Frameworks \& Libraries}{: React, Node.js, FastAPI, SQLAlchemy, LangChain, Scikit-learn} \\
-     \textbf{Databases \& Tools}{: PostgreSQL, SQLite, Git, GitHub, Docker, Kubernetes, Prometheus, GitHub Actions (CI/CD)} \\
-     \textbf{Cloud \& Concepts}{: Azure, REST APIs, DevSecOps, Machine Learning, Retrieval-Augmented Generation (RAG), LLMs (GPT-4o), Database Design} \\
-     \textbf{Hardware}{: ESP32, Arduino, Raspberry Pi} \\
+     \textbf{Languages}: C/C++, Python, JavaScript, TypeScript, SQL \\[2pt]
+     \textbf{Frameworks \& Libraries}: React, Node.js, FastAPI, SQLAlchemy, LangChain, Scikit-learn \\[2pt]
+     \textbf{Tools \& Cloud}: PostgreSQL, Git, Docker, Kubernetes, Prometheus, GitHub Actions (CI/CD), Azure \\[2pt]
+     \textbf{Concepts}: REST APIs, DevSecOps, Machine Learning, Retrieval-Augmented Generation (RAG), LLMs, IoT
     }}
  \end{itemize}
- \vspace{-14pt}
 
 %----------EXPERIENCE----------
 \section{Experience}
@@ -105,39 +100,51 @@
     \resumeSubheading
       {Honeywell Technologies}{Jan 2026 -- Jul 2026}
       {Software Engineer Intern}{Bengaluru, India}
-      \resumeItemListStart
-        \resumeItem{\textbf{AI-Powered NHI Governance Platform} \textit{(Python, LangChain, GPT-4o, React, TypeScript, Azure):} Built a DevSecOps platform that auto-discovers, risk-scores, and governs machine identities (tokens, keys, secrets, service principals, TLS certificates) across GitHub and Azure.}
-        \resumeItem{Engineered a deterministic 0--100 risk-scoring engine and a 7-rule policy-as-code layer with optional GPT-4o explanations via a LangChain agent; automated audits through scheduled CI/CD workflows with SAST/SCA gates and Slack, Jira, and email alerts.}
-        \resumeItem{\textbf{DevSecOps SRE \& Engineering-Intelligence Platform} \textit{(React, TypeScript, FastAPI, PostgreSQL, Prometheus, Nginx):} Built a full-stack platform monitoring 400+ self-hosted CI/CD runners across $\sim$350 hosts via a runner-to-host metric-correlation engine.}
-        \resumeItem{Added a stateful alerting engine, SSO with role-based access control (RBAC) across 7 roles, and ``Unified Ops'' --- a config-driven pipeline unifying security, quality, and build metrics from 5 enterprise tools into one RBAC-scoped dashboard.}
-        \resumeItem{\textbf{AI Dependency-Intelligence Assistant (RAG Chatbot)} \textit{(FastAPI, Next.js, NetworkX, Azure OpenAI):} Built a hybrid Retrieval-Augmented Generation assistant answering plain-English questions over a 1,000+ package dependency graph for a large industrial software product.}
-        \resumeItem{Grounded every answer in a deterministic NetworkX graph engine so the LLM phrases --- but never hallucinates --- impact-analysis facts; delivered a streaming (SSE) chat UI with interactive graph visualizations, secured by SSO/JWT.}
-      \resumeItemListEnd
+
+      \resumeProjectHeading
+        {\textbf{AI-Powered NHI Governance Platform} \quad|\quad \emph{Python, LangChain, GPT-4o, React, Azure}}{}
+        \resumeItemListStart
+          \resumeItem{Built a DevSecOps platform to auto-discover and risk-score non-human identities across GitHub and Azure using a 0--100 scoring engine and 7-rule policy-as-code.}
+          \resumeItem{Added GPT-4o risk summaries through a LangChain agent and automated audits with CI/CD pipelines, SAST/SCA gates, and Slack, Jira, and email alerts.}
+        \resumeItemListEnd
+
+      \resumeProjectHeading
+        {\textbf{DevSecOps SRE \& Engineering-Intelligence Platform} \quad|\quad \emph{React, TypeScript, FastAPI, PostgreSQL}}{}
+        \resumeItemListStart
+          \resumeItem{Built a full-stack platform monitoring 400+ CI/CD runners across $\sim$350 hosts through a runner-to-host metric-correlation engine.}
+          \resumeItem{Shipped a stateful alerting engine, SSO with role-based access control (7 roles), and a pipeline unifying metrics from 5 enterprise security tools.}
+        \resumeItemListEnd
+
+      \resumeProjectHeading
+        {\textbf{AI Dependency-Intelligence Assistant (RAG)} \quad|\quad \emph{FastAPI, Next.js, NetworkX, Azure OpenAI}}{}
+        \resumeItemListStart
+          \resumeItem{Built a hybrid RAG assistant over a 1,000+ package dependency graph, grounding answers in a deterministic graph engine to prevent LLM hallucination.}
+          \resumeItem{Delivered a streaming Next.js chat interface with interactive dependency-graph visualizations, secured by SSO/JWT.}
+        \resumeItemListEnd
+
   \resumeSubHeadingListEnd
 
 %----------PROJECTS----------
 \section{Projects}
     \resumeSubHeadingListStart
       \resumeProjectHeading
-          {\textbf{AI-Based Web Application Firewall} $|$ \emph{Python, FastAPI, React, Scikit-learn}}{2025}
-          \resumeItemListStart
-            \resumeItem{Built an intelligent WAF combining ensemble ML and rule-based detection for SQL-injection, XSS, and command-injection attacks, reaching 95\% detection accuracy.}
-            \resumeItem{Designed a real-time inference pipeline with modular REST APIs, adaptive rule updates, rate limiting, IP allow/deny lists, and a live threat-analytics dashboard.}
-          \resumeItemListEnd
+        {\textbf{AI-Based Web Application Firewall} \quad|\quad \emph{Python, FastAPI, React, Scikit-learn}}{2025}
+        \resumeItemListStart
+          \resumeItem{Built an ML and rule-based WAF detecting SQL-injection, XSS, and command-injection at 95\% accuracy, with a real-time inference pipeline, threat-analytics dashboard, rate limiting, and IP allow/deny lists.}
+        \resumeItemListEnd
       \resumeProjectHeading
-          {\textbf{AI-Powered Sign Language to Speech Converter} $|$ \emph{ESP32, FastAPI, React}}{2025}
-          \resumeItemListStart
-            \resumeItem{Designed an IoT glove (5 flex sensors + 6-axis IMU) with a Random Forest model reaching 92.4\% accuracy at $<$40\,ms latency across all 26 ASL alphabets.}
-            \resumeItem{Built power-efficient ESP32 firmware, a FastAPI inference service, and a React UI with real-time gesture recognition and text-to-speech synthesis.}
-          \resumeItemListEnd
+        {\textbf{AI-Powered Sign Language to Speech Converter} \quad|\quad \emph{ESP32, FastAPI, React}}{2025}
+        \resumeItemListStart
+          \resumeItem{Built an IoT glove (5 flex sensors + 6-axis IMU) with a Random Forest model at 92.4\% accuracy and $<$40\,ms latency across all 26 ASL alphabets, served via FastAPI with a React text-to-speech interface.}
+        \resumeItemListEnd
     \resumeSubHeadingListEnd
 
 %----------ACHIEVEMENTS----------
 \section{Achievements \& Certifications}
   \resumeItemListStart
-    \resumeItem{\textbf{Honeywell STAR Award --- ``Drive Accountability Culture'' (2026):} recognized for exceptional ownership and execution in delivering a GenAI-based security and runner-monitoring solution advancing to production.}
-    \resumeItem{\textbf{National Level INSPIRE Awards:} participant for innovative project development (2016).}
-    \resumeItem{\textbf{Certifications:} Infosys Springboard --- Operating System Fundamentals; Udemy --- Mastering Data Structures \& Algorithms using C/C++.}
+    \resumeItem{\textbf{Honeywell STAR Award --- ``Drive Accountability Culture'' (2026):} recognized for ownership in delivering a GenAI-based security and runner-monitoring solution advancing to production.}
+    \resumeItem{\textbf{National-Level INSPIRE Award (2016):} selected participant for innovative project development.}
+    \resumeItem{\textbf{Certifications:} Infosys Springboard --- OS Fundamentals \quad|\quad Udemy --- DSA (C/C++).}
   \resumeItemListEnd
 
 \end{document}
